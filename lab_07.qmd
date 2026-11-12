@@ -236,12 +236,27 @@ inventory_parts <- tbl(con, "inventory_parts")
 - [ ] Print `sets`. What does the `??` in the first line of the output mean, and why doesn't `dbplyr` know the answer?
 
 ::: {.solution}
+```{r}
+sets
+?? means that the total number of rows is unknown. When you print sets, dbplyr fetches a preview without running a separate query to count all the rows.
+
+?? 表示整张表的总行数未知。打印 sets 时，`dbplyr` 只取一部分数据做预览，没有另外执行查询来统计总行数。
+```
 
 :::
 
 - [ ] Write `dplyr` code that answers the same question as Query 3 from Task 1. Use `show_query()` to compare the SQL that `dbplyr` generates with Query 3.
 
 ::: {.solution}
+```{r}
+top_year <- sets |>
+  count(year, name = "n_sets") |>
+  arrange(desc(n_sets)) |>
+  head(1)
+
+show_query(top_year)
+collect(top_year)
+```
 
 :::
 
@@ -258,6 +273,14 @@ Next, we ask: are LEGO sets getting bigger?
 - [ ] What do you conclude? Look at the spike around 1960, and at the most recent year: how many sets is each point based on?
 
 ::: {.solution}
+```{r}
+top_level_count <- themes |>
+  filter(is.na(parent_id)) |>
+  summarise(n_top_level = n())
+
+show_query(top_level_count)
+top_level_count
+```
 
 :::
 
