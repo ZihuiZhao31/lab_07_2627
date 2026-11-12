@@ -119,7 +119,13 @@ LIMIT 5;
 ```
 
 - [ ] Explain in words what each query computes. Why do they give different answers? (Hint: run the query below.)
+
+#Query A counts sets separately for each theme ID. Query B counts sets by theme name, so themes with the same name but different IDs are counted together. This can change both the counts and the ranking.
+#查询 A 按主题 ID 和名称分组，分别统计每个主题的套装数量。查询 B 只按主题名称分组，所以名称相同但 ID 不同的主题会合在一起计数。因此，两条查询得到的套装数量和排名可能不同。
+
 - [ ] Which theme comes top in Query A? Use the second query below to look at some of its sets. Is "the theme with the most sets" a good way to find the most popular theme?
+#Gear has the most sets in Query A. However, the number of sets only tells us how many products LEGO released under each theme. Sales figures would be a better measure of popularity.
+#查询 A 中，Gear 的套装数量最多。但套装数量只能说明乐高在这个主题下推出了多少款产品，不能直接说明它最受欢迎。要判断受欢迎程度，销量会是更直接的指标。
 
 ```{sql}
 #| connection: con
